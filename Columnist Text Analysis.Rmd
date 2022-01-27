@@ -1,0 +1,88 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Analysis or Ross Nelson columns for the Fargo Forum.
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(stringr)
+library(readr)
+library(ggraph)
+library(textclean)
+```
+
+### Ideas:
+   - Count of embedded quotes; word count related to quotes as a % of total word count.
+   - Avg sentence length
+   - What's that function or method for determining grade-level reading level
+   - Avg. word count per story
+   - Breadth of vocabulary; usage of arcane words which are not used by other columnists
+   - Sentiment analysis
+   - bigrams
+   - Comparison of columnists on a matrix x:vocabulary; y: sentiment analysis
+   - Bigrams/trigrams: level of redunancy
+   
+```{r}
+setwd("C:/Users/SAND8464/OneDrive - RDO/Corpus/Scott Hennen")
+dir = "C:/Users/SAND8464/OneDrive - RDO/Corpus/Scott Hennen/"
+
+df = data.frame("docid" = character(), 
+                "text"=character())
+
+file_list = as.list(list.files(path="."))
+
+for (i in 1:length(file_list)){
+   
+   # set the file object by concatenating the directors and the text from the file_list element as noted by [i]
+   file = paste0(dir,file_list[i])
+   
+   # extract text from .txt file.
+   file_text = as.data.frame(readtext(file = file, encoding = "UTF-8"))
+   
+   # remove line breaks if they appear in the text
+   file_text$text = str_replace_all(file_text$text, "\n", " ")
+   
+   # removes "curly quotes" found in file; replace curly quotes with tildes
+   file_text$text = gsub("(\x93|\x94)", "~", file_text$text, perl=T) 
+   
+   # regex: remove (replace w/ zero space) text between tildes; this will remove the embedded quotation
+   file_text$text = gsub("~[^~]+~", "", file_text$text)
+   
+   # append to dataframe
+   df = rbind(df, file_text)
+}
+```
+
+```{r}
+f = substr(t, 2,nchar(t)-1)
+f
+
+sentence = textshape::split_sentence(file_text$text)
+sentence
+
+clean = str_repl(file_text$text, "â€\u009d")
+file_text$
+```
+
+
+```{r}
+df2 = df %>%
+   # break text string into individual words array
+   unnest_tokens(input = "text", output="word") %>%
+   
+   # filter out words which appear as all numbers (e.g. 2001, 14) or combinations of letters/numbers (e.g 12EED,ABC123)
+   filter(str_detect(word, "[:alpha:]"))%>%
+   
+   # remove stop words (e.g. a, an, the, when, who, etc.); stop words come from tidytext package
+   anti_join(stop_words, by="word") %>%
+   
+   # count and sort word (i.e. "tokens")
+   count(word, sort=TRUE)
+
+View(df2)
+```
+
+A 
