@@ -6,7 +6,11 @@ Writings posted within this repository are not mine (Drew Sandberg); the copywri
 
 ### Columnists
 [Washington Post](washingtonpost.com)
-- George F. Will; Washington Post
+- George F. Will
 
--Mike Huelett; contributor to Forum Communications (Fargo, ND)
-
+[Forum Communications](www.inforum.com/opinion/columns)
+- Mike Huelett
+- Ross Nelson
+- Joan Brickner
+- Scott Hennen
+- Betty Grande
