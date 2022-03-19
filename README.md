@@ -6,7 +6,7 @@ Writings posted within this repository are not mine (Drew Sandberg); the copywri
 
 ### Columnists
 [Washington Post](washingtonpost.com)
--George F. Will; Washington Post
+- George F. Will; Washington Post
 
 -Mike Huelett; contributor to Forum Communications (Fargo, ND)
 
